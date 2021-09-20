@@ -1,5 +1,4 @@
-PROGRAM tipos;
-USES crt, sysutils;
+{$INCLUDE funciones}
 
 //-----------------------------------
 // * Declaracion de tipos de datos *

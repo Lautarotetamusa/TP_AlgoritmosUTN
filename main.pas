@@ -1,17 +1,4 @@
-
-{$INCLUDE empresas}
-
-
-// ----------------------------
-// * Asignacion de archivos *
-// ---------------------------
-procedure AssignFiles();
-BEGIN
-		assign(empresas, 'data/empresas.dat');
-		assign(clientes, 'data/clientes.dat');
-		assign(proyectos, 'data/proyectos.dat');
-		assign(productos, 'data/productos.dat');
-END;
+{$INCLUDE ciudades}
 
 
 
@@ -25,5 +12,5 @@ BEGIN
 
 	 AltaEmpresas();
 
-	 //AltaCiudades();
+	 AltaCiudades();
 END.

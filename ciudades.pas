@@ -1,11 +1,4 @@
-{$INCLUDE tipos}
-
-procedure Cartel();
-BEGIN
-	writeln('╔═══════════════════════╗');
-	writeln('║     Alta ciudades     ║');
-	writeln('╚═══════════════════════╝');
-END;
+{$INCLUDE empresas}
 
 // -------- BusquedaCiudad (ciudad) ------------
 // Return true si la ciudad esta en ciudades.dat
@@ -84,7 +77,6 @@ VAR
 	confirmacion : char;
 	elem : ciudad;
 	i : integer;
-	cod_ciudad : array[0..3] of char;
 BEGIN
 		assign(ciudades, 'data/ciudades.dat');
 		reset(ciudades);
@@ -92,27 +84,23 @@ BEGIN
 		//posicionarse al final del archivo
 		i := filesize(ciudades);
 		repeat
-			Cartel();
+			Cartel('ciudades');
 
 		  writeln('Desea Ingresar una ciudad (s o n): ');
 			readln(confirmacion);
-			clrscr;
 			if UpperCase(confirmacion) = 'S' then
 			begin
-				Cartel();
+				Cartel('ciudades');
 
 				// * Leemos las variables * //
 				// Leer codigo ciudad //
-				writeln('[ Solo se ingresan 3 letras ]');
-				write('Codigo:  '); readln(cod_ciudad);
-				elem.COD_ciudad := UpperCase(cod_ciudad);
-				clrscr;
-				Cartel();
+				elem.COD_ciudad := IngresoCodigo('ciudades');
+
+				Cartel('ciudades');
 
 				// Leer Nombre //
 				write('Nombre ciudad: '); readln(elem.nombre);
-				clrscr;
-				Cartel();
+				Cartel('ciudades');
 
 				// * Verificar que no este agregada esa ciudad * //
 				if BusquedaCiudad(elem) then

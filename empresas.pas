@@ -1,15 +1,6 @@
 {$INCLUDE tipos}
 
 
-procedure Cartel();
-BEGIN
-	clrscr;
-
-	writeln('╔═══════════════════════╗');
-	writeln('║     Alta empresas     ║');
-	writeln('╚═══════════════════════╝');
-END;
-
 function BuscarCiudad(a : string) : boolean;
 VAR
 	i, n : integer;
@@ -47,33 +38,6 @@ begin
 	writeln('COD_ciudad: ', e.cod_ciudad);
 end;
 
-// ------------------------------------------------------
-// * Hace los chequeos necesarios del ingreso de un COD *
-// ------------------------------------------------------
-function IngresoCodigo(cartel : string) : string;
-VAR
-	return : string;
-BEGIN
-	repeat
-		clrscr;
-
-		writeln('╔═══════════════════════╗');
-		writeln('║     Alta empresas     ║');
-		writeln('╚═══════════════════════╝');
-
-		writeln('[ 3 letras mayusculas ]');
-		write('COD ', cartel, ' : '); readln(return);
-
-		if (length(return) <> 3) then
-		begin
-			WriteLn('El codigo debe tener 3 letras');
-			sleep(1500)
-		end;
-	until (length(return) = 3);
-
-	exit(UpperCase(return));
-END;
-
 procedure AltaEmpresas();
 VAR
 	_empresa : empresa;
@@ -87,7 +51,7 @@ BEGIN
 	//posicionarse al final del archivo
 	i := filesize(empresas);
 	repeat
-		Cartel();
+		Cartel('empresas');
 
 		writeln('Desea Ingresar una empresa (s o n): ');
 		readln(confirmacion);
@@ -97,16 +61,16 @@ BEGIN
 			_empresa.cod_empresa := IngresoCodigo('empresa');
 
 			//Ingreso
-			Cartel();
+			Cartel('empresas');
 			write('Nombre: '); readln(_empresa.nombre);
 
-			Cartel();
+			Cartel('empresas');
 			write('Direccion: '); readln(_empresa.direccion);
 
-			Cartel();
+			Cartel('empresas');
 			write('telefono: '); readln(_empresa.telefono);
 
-			Cartel();
+			Cartel('empresas');
 			write('Mail: '); readln(_empresa.mail);
 
 			// * Ingreso COD ciudad * //

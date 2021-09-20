@@ -16,11 +16,12 @@ type ciudad = RECORD
 				COD_ciudad : array[0..3] of char;
 		 END;
 		 empresa = RECORD
+		 		direccion		: array[0..40] of char;
 		 		mail 				: array[0..30] of char;
 				nombre 			: array[0..20] of char;
 				telefono		: array[0..20] of char;
-				COD_empresa : array[0..2] of char;
-				COD_ciudad	: array[0..2] of char;
+				COD_empresa : array[0..3] of char;
+				COD_ciudad	: array[0..3] of char;
 		 END;
 		 cliente = RECORD
 		 		nombre_apellido : array[0..40] of char;
@@ -33,17 +34,17 @@ type ciudad = RECORD
 				// [1] cant de consultas
 				// [2] cant de vendidos
 				// ---------------------
-		 		cantidades : array[0..2] of integer;
-		 		COD_proy   : array[0..2] of char;
-				COD_emp  	 : array[0..2] of char;
-				COD_ciudad : array[0..2] of char;
+				cantidades : array[0..3] of integer;
+		 		COD_proy   : array[0..3] of char;
+				COD_emp  	 : array[0..3] of char;
+				COD_ciudad : array[0..3] of char;
 				etapa    : char;
 				tipo 		 : char;
 		 END;
 		 producto = RECORD
 		 		detalle : array[0..49] of char;
-		 		COD_prod :  array[0..2] of char;
-				COD_proy :  array[0..2] of char;
+		 		COD_prod :  array[0..3] of char;
+				COD_proy :  array[0..3] of char;
 				estado : boolean;
 				precio : real;
 		 END;

@@ -1,4 +1,5 @@
-{$INCLUDE ciudades}
+
+{$INCLUDE empresas}
 
 
 // ----------------------------
@@ -18,7 +19,11 @@ END;
 // * Programa principal *
 // ---------------------------
 BEGIN
-	 AssignFiles();
+	// AssignFiles();
 
-	 AltaCiudades();
+	 clrscr;
+
+	 AltaEmpresas();
+
+	 //AltaCiudades();
 END.

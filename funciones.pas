@@ -4,10 +4,13 @@ USES crt, sysutils;
 procedure Cartel(message : string);
 BEGIN
 	clrscr;
-
-	writeln('╔═══════════════════════╗');
-	writeln('║     Alta ', message,'     ║');
-	writeln('╚═══════════════════════╝');
+	
+	writeln('  _______________________');
+	writeln(' |  ___________________  |');
+	writeln(' | |   MENU ', message,'   | |');
+	writeln(' | |___________________| |');
+	writeln(' |_______________________|');
+	writeln('');
 END;
 
 // ------------------------------------------------------------
@@ -19,10 +22,12 @@ VAR
 BEGIN
 	repeat
 		clrscr;
-
-		writeln('╔═══════════════════════╗');
-		writeln('║     Alta ', cartel,'     ║');
-		writeln('╚═══════════════════════╝');
+		writeln('  _______________________');
+		writeln(' |  ___________________  |');
+		writeln(' | |   ALTA ', cartel,'   | |');
+		writeln(' | |___________________| |');
+		writeln(' |_______________________|');
+		writeln('');
 
 		writeln('[ 3 letras mayusculas ]');
 		write('COD ', cartel, ' : '); readln(return);

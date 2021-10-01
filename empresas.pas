@@ -51,31 +51,32 @@ BEGIN
 	//posicionarse al final del archivo
 	i := filesize(empresas);
 	repeat
-		Cartel('empresas');
+		Cartel('EMPRESAS');
 
-		writeln('Desea Ingresar una empresa (s o n): ');
+		writeln(' Desea Ingresar una empresa (s o n): ');
+		write(' ');
 		readln(confirmacion);
 		if UpperCase(confirmacion) = 'S' then
 		begin
 
-			_empresa.cod_empresa := IngresoCodigo('empresa');
+			_empresa.cod_empresa := IngresoCodigo('EMPRESAS');
 
 			//Ingreso
-			Cartel('empresas');
-			write('Nombre: '); readln(_empresa.nombre);
+			Cartel('EMPRESAS');
+			write(' Nombre: '); readln(_empresa.nombre);
 
-			Cartel('empresas');
-			write('Direccion: '); readln(_empresa.direccion);
+			Cartel('EMPRESAS');
+			write(' Direccion: '); readln(_empresa.direccion);
 
-			Cartel('empresas');
-			write('telefono: '); readln(_empresa.telefono);
+			Cartel('EMPRESAS');
+			write(' Telefono: '); readln(_empresa.telefono);
 
-			Cartel('empresas');
-			write('Mail: '); readln(_empresa.mail);
+			Cartel('EMPRESAS');
+			write(' Mail: '); readln(_empresa.mail);
 
 			// * Ingreso COD ciudad * //
 			repeat
-				cod_ciudad := IngresoCodigo('ciudad');
+				cod_ciudad := IngresoCodigo('CIUDAD');
 
 				if not(BuscarCiudad(cod_ciudad)) then
 				begin

@@ -1,6 +1,7 @@
 PROGRAM tipos;
-USES crt, sysutils;
-
+USES crt,sysutils,contra;
+var
+intentos:integer;
 procedure Cartel(message : string);
 BEGIN
 	clrscr;
@@ -29,8 +30,8 @@ BEGIN
 		writeln(' |_______________________|');
 		writeln('');
 
-		writeln('[ 3 letras mayusculas ]');
-		write('COD ', cartel, ' : '); readln(return);
+		writeln(' [ 3 letras mayusculas ]');
+		write(' COD ', cartel, ' : '); readln(return);
 
 		if (length(return) <> 3) then
 		begin

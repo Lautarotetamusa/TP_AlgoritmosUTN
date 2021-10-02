@@ -54,6 +54,6 @@ type ciudad = RECORD
  var
  		ciudades : FILE of ciudad;
 		empresas : FILE of empresa;
-		clientes : FILE of cliente;
+		{clientes : FILE of cliente;
 		proyectos: FILE of proyecto;
-		productos: FILE of producto;
+		productos: FILE of producto;}

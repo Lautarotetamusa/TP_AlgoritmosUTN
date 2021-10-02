@@ -1,6 +1,7 @@
 {$INCLUDE ciudades}
 
 procedure menuPrincipal();forward;
+function contra():string;forward;
 procedure menuEmpresas();
 	var
 		descartable:char;
@@ -75,17 +76,64 @@ procedure menuPrincipal();
 		ReadLn(descartable);
 
 		case (descartable) of
-			'1': menuEmpresas();
-			'2': menuClientes();
+			'1':if (intentos<3) then
+				begin
+					if autenticacion(contra(),1) then
+						menuEmpresas()
+					else
+					begin
+						intentos:= intentos+1;
+						writeln(' ');
+						writeln(' CLAVE INCORRECTA, ',3-intentos,' INTENTOS RESTANTES, presione una tecla para continuar');
+						readln();
+					end;
+				end
+				else
+				begin
+					writeln(' INTENTOS AGOTADOS, presione una tecla para volver');
+					readln();
+				end;
+			'2':if autenticacion(contra(),2) then
+					menuClientes()
+				else
+				begin
+					writeln(' ');
+                	writeln(' CLAVE INCORRECTA, presione una tecla para continuar');
+                	readln();
+				end;
 			'0': halt();
 			else WriteLn(descartable, ' NO ES UNA OPCION VALIDA')
 		end;
 	end;
+    
+//Camufla la contra para que no se vea cuando se escribe
+function contra():string;
+	var
+	    clave:string;
+	    ch:char;
+	begin
+	    clave:='';
+	    writeln(' INGRESE CLAVE:');
+		write(' ');
+	    ch:=readkey;
+	    while ch <>#13 do
+	    begin
+	        clave:=clave+ch;
+	        write('*');
+	        ch:=readkey;
+	    end;
+	    contra:=clave;
+	end;
+
+
+
+
 
 // ----------------------------
 // * Programa principal *
 // ---------------------------
 BEGIN
+	intentos:=0;
 	// AssignFiles();
 	while 1 = 1 do
 	begin

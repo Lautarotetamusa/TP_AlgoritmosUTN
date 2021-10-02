@@ -7,7 +7,7 @@ function BusquedaCiudad(a : ciudad) : boolean;
 VAR
 	i : integer;
 	n : integer;
-	elem : ciudad;
+	_ciudad : ciudad;
 BEGIN
 	//assign(ciudades, 'data/ciudades.dat');
 	//reset(ciudades);
@@ -17,8 +17,8 @@ BEGIN
 	while(i < n) do
 	begin
 		seek(ciudades, i);
-		read(ciudades, elem);
-		if (elem.COD_ciudad = a.COD_ciudad) or (UpperCase(elem.nombre) = UpperCase(a.nombre)) then
+		read(ciudades, _ciudad);
+		if (_ciudad.COD_ciudad = a.COD_ciudad) or (UpperCase(_ciudad.nombre) = UpperCase(a.nombre)) then
 			exit(true);
 
 		i := i + 1;
@@ -66,6 +66,13 @@ BEGIN
 	end;
 END;
 
+procedure ShowCiudad(a : ciudad);
+begin
+	writeln(' COD: ', a.COD_ciudad);
+	writeln(' Nombre: ', a.nombre);
+end;
+
+
 // -----------------------------------------------
 // Ingresa las ciudades en el archivo ciudades.dat
 // COD_ciudad se guarda como un string[3]
@@ -75,7 +82,7 @@ END;
 procedure AltaCiudades();
 VAR
 	confirmacion : char;
-	elem : ciudad;
+	_ciudad : ciudad;
 	i : integer;
 BEGIN
 		assign(ciudades, 'data/ciudades.dat');
@@ -84,7 +91,7 @@ BEGIN
 		//posicionarse al final del archivo
 		i := filesize(ciudades);
 		repeat
-			Cartel('ciudades');
+			Cartel('CIUDADES');
 
 		  writeln('Desea Ingresar una ciudad (s o n): ');
 			readln(confirmacion);
@@ -94,18 +101,18 @@ BEGIN
 
 				// * Leemos las variables * //
 				// Leer codigo ciudad //
-				elem.COD_ciudad := IngresoCodigo('ciudades');
+				_ciudad.COD_ciudad := IngresoCodigo('ciudades');
 
 				Cartel('ciudades');
 
 				// Leer Nombre //
-				write('Nombre ciudad: '); readln(elem.nombre);
+				write(' Nombre ciudad: '); readln(_ciudad.nombre);
 				Cartel('ciudades');
 
 				// * Verificar que no este agregada esa ciudad * //
-				if BusquedaCiudad(elem) then
+				if BusquedaCiudad(_ciudad) then
 				begin
-					writeLn('La ciudad ya existe');
+					writeLn(' La ciudad ya existe');
 					sleep(1500);
 					clrscr;
 				end
@@ -113,12 +120,12 @@ BEGIN
 				begin
 				  // Guardar la ciudad en el archivo //
 					seek(ciudades, i);
-					write(ciudades, elem);
+					write(ciudades, _ciudad);
 					i := i + 1;
 
-					writeln('Ciudad ingresada con exito!');
-					writeln('[COD: ', elem.COD_ciudad, ']    [Nombre:', elem.nombre, ']');
-					sleep(1500);
+					writeln(' Ciudad ingresada correctamente, presione para continuar');
+					ShowCiudad(_ciudad);
+					readln();
 					clrscr;
 				end;
 			end;

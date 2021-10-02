@@ -96,9 +96,9 @@ BEGIN
 			seek(empresas, i);
 			write(empresas, _empresa);
 
-			writeln(' Empresa ingresada correctamente');
-			ShowEmpresa(_empresa);
-			sleep(2000);
+			writeln(' Empresa ingresado correctamente, presione para continuar');
+			showEmpresa(_empresa);
+			readln();
 			// ------------------------------------------- //
 
 		end;

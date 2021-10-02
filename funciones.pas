@@ -7,10 +7,11 @@ intentos:integer;
 
 procedure Cartel(message : string);
 BEGIN
-	
+
 	clrscr;
 	writeln('  _______________________');
 	writeln(' |  ___________________  |');
+	writeln(' | |                   | |');
 	writeln(' | |   MENU ', message,'   | |');
 	writeln(' | |___________________| |');
 	writeln(' |_______________________|');

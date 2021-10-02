@@ -62,6 +62,24 @@ begin
 	exit(etapa);
 end;
 
+
+procedure ShowProyecto(a : proyecto);
+var
+	i : integer;
+	cantidades : array [0..2] of string = ('productos', 'consultas', 'vendidos');
+begin
+	writeln(' COD proy: ', a.COD_proy);
+	writeln(' COD emp: ', a.COD_emp);
+	writeln(' COD ciudad: ', a.COD_ciudad);
+	writeln(' etapa: ', a.etapa);
+	writeln(' tipo: ', a.tipo);
+	writeln(' Cantidades:');
+	for i:=0 to 2 do
+	begin
+		writeln(' cantidades de ', cantidades[i], ': ', a.cantidades[i]);
+	end;
+
+end;
 procedure AltaProyectos();
 var
 		confirmacion : char;
@@ -118,21 +136,25 @@ begin
 
 
 				// * Ingreso etapa * //
-				_proyecto.etapa := IngresoCaracter('Etapa', ['P', 'O', 'T']);
+				_proyecto.etapa := IngresoCaracter(' Etapa', ['P', 'O', 'T']);
 				// ----------------- //
 
 
 				// * Ingreso tipo * //
-				_proyecto.tipo := IngresoCaracter('Tipo', ['C', 'D', 'O', 'L']);
+				_proyecto.tipo := IngresoCaracter(' Tipo', ['C', 'D', 'O', 'L']);
 				// ----------------- //
 
 				// * Ingreso Cantidades * //
-				for i := 0 to 3 do
+				for i := 0 to 2 do
 				begin
 					Cartel('PROYECTO');
 					write(' Cantidad de ', cantidades[i],': '); readln(_proyecto.cantidades[i])
 				end;
 				// ---------------------- //
+
+				writeln(' Proyecto ingresada correctamente, presione para continuar');
+				ShowProyecto(_proyecto);
+				readln();
 
 				write(proyectos, _proyecto);
 		end;

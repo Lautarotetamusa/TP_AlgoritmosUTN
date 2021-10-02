@@ -54,6 +54,7 @@ procedure menuPrincipal();
 		clrscr;
 		writeln('  _______________________');
 		writeln(' |  ___________________  |');
+		writeln(' | |                   | |');
 		writeln(' | |   MENU PRINCIPAL  | |');
 		writeln(' | |___________________| |');
 		writeln(' |_______________________|');
@@ -96,9 +97,9 @@ procedure menuPrincipal();
 		end;
 	end;
 
-// ------------------------------------------------------
-// Camufla la contra para que no se vea cuando se escribe
-// ------------------------------------------------------
+// ---------------------------------------------------------
+// * Camufla la contra para que no se vea cuando se escribe *
+// ----------------------------------------------------------
 function contra():string;
 	var
 	    clave:string;
@@ -118,9 +119,9 @@ function contra():string;
 	end;
 
 
-// ----------------------------
+// -----------------------
 // * Programa principal *
-// ---------------------------
+// -----------------------
 BEGIN
 	intentos:=0;
 

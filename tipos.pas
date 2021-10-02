@@ -9,8 +9,9 @@
 // proyecto
 // producto
 // ---------------------------------
+type 
 
-type ciudad = RECORD
+		 ciudad = RECORD
 				nombre 		 : array[0..20] of char;
 				COD_ciudad : array[0..3] of char;
 		 END;
@@ -55,5 +56,5 @@ type ciudad = RECORD
  		ciudades : FILE of ciudad;
 		empresas : FILE of empresa;
 		clientes : FILE of cliente;
-		proyectos: FILE of proyecto;
-		productos: FILE of producto;
+		{proyectos: FILE of proyecto;
+		productos: FILE of producto;}

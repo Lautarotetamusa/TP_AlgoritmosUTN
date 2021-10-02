@@ -1,7 +1,9 @@
 {$INCLUDE proyectos}
 
 procedure menuPrincipal();forward;
+
 function contra():string;forward;
+
 procedure menuEmpresas();
 	var
 		descartable:char;
@@ -26,7 +28,7 @@ procedure menuEmpresas();
 		case (descartable) of
 			'1':AltaCiudades();
 			'2':AltaEmpresas();
-			'3':WriteLn('ALTA');
+			'3':AltaProyectos();
 			'4':WriteLn('ALTA');
 			'5':WriteLn('ALTA');
 			'0':menuPrincipal();
@@ -58,7 +60,7 @@ procedure menuClientes();
 	end;
 
 procedure menuPrincipal();
-	var 
+	var
 		descartable:char;
 	begin
 		clrscr;
@@ -105,8 +107,10 @@ procedure menuPrincipal();
 			else WriteLn(descartable, ' NO ES UNA OPCION VALIDA')
 		end;
 	end;
-    
-//Camufla la contra para que no se vea cuando se escribe
+
+// ------------------------------------------------------
+// Camufla la contra para que no se vea cuando se escribe
+// ------------------------------------------------------
 function contra():string;
 	var
 	    clave:string;
@@ -126,29 +130,15 @@ function contra():string;
 	end;
 
 
-
-
-
 // ----------------------------
 // * Programa principal *
 // ---------------------------
 BEGIN
 	intentos:=0;
-	// AssignFiles();
-<<<<<<< HEAD
 
-	 clrscr;
-
-	 AltaProyectos();
-
-	 AltaEmpresas();
-
-	 AltaCiudades();
-=======
 	while 1 = 1 do
 	begin
 		clrscr;
 		menuPrincipal();
-	end;	
->>>>>>> bf390b0e0e70e2b7d819555ac572d37d69a0ba03
+	end;
 END.

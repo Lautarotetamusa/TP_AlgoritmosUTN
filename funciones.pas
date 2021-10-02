@@ -1,21 +1,14 @@
 // * Archivo con funciones que se usan en el resto de archivos * //
 
-PROGRAM tipos;
-<<<<<<< HEAD
-USES crt, sysutils;
-
-// ----------------------------------------- //
-// Muestra el cartel con el nombre del param //
-// ----------------------------------------- //
-=======
-USES crt,sysutils,contra;
+PROGRAM funciones;
+USES crt,sysutils, contra;
 var
 intentos:integer;
->>>>>>> bf390b0e0e70e2b7d819555ac572d37d69a0ba03
+
 procedure Cartel(message : string);
 BEGIN
 	clrscr;
-	
+
 	writeln('  _______________________');
 	writeln(' |  ___________________  |');
 	writeln(' | |   MENU ', message,'   | |');

@@ -61,7 +61,8 @@ BEGIN
 		if UpperCase(confirmacion) = 'S' then
 		begin
 
-			_empresa.cod_empresa := IngresoCodigo('EMPRESAS');
+			Cartel('EMPRESAS');
+			_empresa.cod_empresa := IngresoCodigo('empresa');
 
 			//Ingreso
 			Cartel('EMPRESAS');
@@ -78,7 +79,8 @@ BEGIN
 
 			// * Ingreso COD ciudad * //
 			repeat
-				cod_ciudad := IngresoCodigo('CIUDAD');
+				Cartel('EMPRESAS');
+				cod_ciudad := IngresoCodigo('ciudad');
 
 				if not(BuscarCiudad(cod_ciudad)) then
 				begin

@@ -7,8 +7,8 @@ intentos:integer;
 
 procedure Cartel(message : string);
 BEGIN
+	
 	clrscr;
-
 	writeln('  _______________________');
 	writeln(' |  ___________________  |');
 	writeln(' | |   MENU ', message,'   | |');
@@ -25,13 +25,6 @@ VAR
 	return : string;
 BEGIN
 	repeat
-		clrscr;
-		writeln('  _______________________');
-		writeln(' |  ___________________  |');
-		writeln(' | |   ALTA ', cartel,'   | |');
-		writeln(' | |___________________| |');
-		writeln(' |_______________________|');
-		writeln('');
 
 		writeln(' [ 3 letras mayusculas ]');
 		write(' COD ', cartel, ' : '); readln(return);

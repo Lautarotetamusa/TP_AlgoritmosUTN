@@ -8,13 +8,7 @@ procedure menuEmpresas();
 	var
 		descartable:char;
 	begin
-		clrscr;
-		writeln('  _______________________');
-		writeln(' |  ___________________  |');
-		writeln(' | |   MENU EMPRESAS   | |');
-		writeln(' | |___________________| |');
-		writeln(' |_______________________|');
-		writeln('');
+		Cartel('EMPRESAS');
 
 		WriteLn(' 1. Alta de CIUDADES');
 		WriteLn(' 2. Alta de EMPRESAS');
@@ -40,13 +34,7 @@ procedure menuClientes();
 	var
 		descartable:char;
 	begin
-		clrscr;
-		writeln('  _______________________');
-		writeln(' |  ___________________  |');
-		writeln(' | |   MENU CLIENTES   | |');
-		writeln(' | |___________________| |');
-		writeln(' |_______________________|');
-		writeln('');
+		Cartel('CLIENTES');
 		WriteLn(' 1. Alta de CLIENTE');
 		WriteLn(' 0. Volver al menu principal');
 		write(' ');

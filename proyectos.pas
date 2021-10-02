@@ -35,7 +35,7 @@ begin
 
 	repeat
 		Cartel('proyecto');
-		write('[ ');
+		write(' [ ');
 		for i:=0 to n-1 do
 		begin
 			write(options[i], ' - ');
@@ -53,7 +53,7 @@ begin
 
 		if not correcto then
 		begin
-			writeln('Codigo de ',nombre,' incorrecto');
+			writeln(' Codigo de ',nombre,' incorrecto');
 			sleep(2000);
 		end;
 	until correcto;
@@ -68,24 +68,26 @@ var
 		_proyecto : proyecto;
 		cod_ciudad : string;
 		cod_empresa: string;
-		etapa 		 : char;
-		tipo   		 : char;
+		i : integer;
+		cantidades : array [0..2] of string = ('productos', 'consultas', 'vendidos');
 begin
 	assign(proyectos, 'data/proyectos.dat');
 	reset(proyectos);
 
 	repeat
-		Cartel('proyecto');
+		Cartel('PROYECTO');
 
 		writeln('Desea Ingresar un proyecto (s o n): ');
 		readln(confirmacion);
 		if UpperCase(confirmacion) = 'S' then
 		begin
 
+				Cartel('PROYECTO');
 				_proyecto.COD_proy := IngresoCodigo('proyecto');
 
 				// * Ingreso COD empresa * //
 				repeat
+					Cartel('PROYECTO');
 					cod_empresa := IngresoCodigo('empresa');
 
 					if not(BuscarEmpresa(cod_empresa)) then
@@ -101,6 +103,7 @@ begin
 
 				// * Ingreso COD ciudad * //
 				repeat
+					Cartel('PROYECTO');
 					cod_ciudad := IngresoCodigo('ciudad');
 
 					if not(BuscarCiudad(cod_ciudad)) then
@@ -115,13 +118,23 @@ begin
 
 
 				// * Ingreso etapa * //
-				etapa := IngresoCaracter('Etapa', ['P', 'O', 'T']);
+				_proyecto.etapa := IngresoCaracter('Etapa', ['P', 'O', 'T']);
 				// ----------------- //
 
 
 				// * Ingreso tipo * //
-				tipo := IngresoCaracter('Tipo', ['C', 'D', 'O', 'L']);
+				_proyecto.tipo := IngresoCaracter('Tipo', ['C', 'D', 'O', 'L']);
 				// ----------------- //
+
+				// * Ingreso Cantidades * //
+				for i := 0 to 3 do
+				begin
+					Cartel('PROYECTO');
+					write(' Cantidad de ', cantidades[i],': '); readln(_proyecto.cantidades[i])
+				end;
+				// ---------------------- //
+
+				write(proyectos, _proyecto);
 		end;
 	until UpperCase(confirmacion) = 'N';
 

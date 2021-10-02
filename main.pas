@@ -51,7 +51,7 @@ procedure menuClientes();
 		ReadLn(descartable);
 
 		case (descartable) of
-			'1':WriteLn('ALTA');
+			'1':altaClientes();
 			'0':menuPrincipal();
 			else WriteLn(descartable,' NO ES UNA OPCION VALIDA')
 		end;

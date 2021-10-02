@@ -1,4 +1,4 @@
-{$INCLUDE tipos}
+{$INCLUDE clientes}
 
 
 function BuscarCiudad(a : string) : boolean;
@@ -53,7 +53,7 @@ BEGIN
 	repeat
 		Cartel('EMPRESAS');
 
-		writeln(' Desea Ingresar una empresa (s o n): ');
+		writeln(' Desea Ingresar una empresa? (s o n): ');
 		write(' ');
 		readln(confirmacion);
 		if UpperCase(confirmacion) = 'S' then
@@ -92,7 +92,7 @@ BEGIN
 			seek(empresas, i);
 			write(empresas, _empresa);
 
-			writeln('Empresa ingresada correctamente');
+			writeln(' Empresa ingresada correctamente');
 			ShowEmpresa(_empresa);
 			sleep(2000);
 			// ------------------------------------------- //

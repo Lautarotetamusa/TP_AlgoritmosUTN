@@ -1,4 +1,4 @@
-{$INCLUDE ciudades}
+{$INCLUDE proyectos}
 
 
 
@@ -9,6 +9,8 @@ BEGIN
 	// AssignFiles();
 
 	 clrscr;
+
+	 AltaProyectos();
 
 	 AltaEmpresas();
 

@@ -1,6 +1,8 @@
 {$INCLUDE tipos}
 
-
+// ---------------------------------------------------- //
+// Busca si el codigo de la ciudad existe en el archivo //
+// ---------------------------------------------------- //
 function BuscarCiudad(a : string) : boolean;
 VAR
 	i, n : integer;
@@ -25,9 +27,9 @@ BEGIN
 	exit(false);
 END;
 
-// ------------------- ShowEmpresa() --------------------
-// Muestra los datos de una empresa pasada como parametro
-// ------------------------------------------------------
+// ------------------- ShowEmpresa() -------------------- //
+// Muestra los datos de una empresa pasada como parametro //
+// ------------------------------------------------------ //
 procedure ShowEmpresa(e : empresa);
 begin
 	writeln('COD_empresa: ', e.cod_empresa);

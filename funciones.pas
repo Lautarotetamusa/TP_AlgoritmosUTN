@@ -1,6 +1,11 @@
+// * Archivo con funciones que se usan en el resto de archivos * //
+
 PROGRAM tipos;
 USES crt, sysutils;
 
+// ----------------------------------------- //
+// Muestra el cartel con el nombre del param //
+// ----------------------------------------- //
 procedure Cartel(message : string);
 BEGIN
 	clrscr;
@@ -10,9 +15,9 @@ BEGIN
 	writeln('╚═══════════════════════╝');
 END;
 
-// ------------------------------------------------------------
-// * Hace los chequeos necesarios del ingreso de cualquier COD *
-// ------------------------------------------------------------
+// ------------------------------------------------------------- //
+// * Hace los chequeos necesarios del ingreso de cualquier COD * //
+// ------------------------------------------------------------- //
 function IngresoCodigo(cartel : string) : string;
 VAR
 	return : string;

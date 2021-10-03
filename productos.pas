@@ -1,5 +1,14 @@
 {$INCLUDE proyectos}
 
+procedure ShowProducto(a : producto);
+begin
+	writeln(' detalle: ', a.detalle);
+	writeln(' COD_prod: ', a.COD_prod);
+	writeln(' COD_proy: ', a.COD_proy);
+	writeln(' estado: ', a.estado);
+	writeln(' precio: ', a.precio); 
+end;
+
 procedure AltaProductos();
 var
 		confirmacion : char;
@@ -58,9 +67,18 @@ begin
 
 
 				// Ingreso Detalle //
-
-
+				writeln(' Detalle: '); readln(_producto.detalle);
 				// --------------- //
+
+				// * Guardar _producto en el archivo producto * //
+				seek(productos, i);
+				write(productos, _producto);
+
+				Cartel('EMPRESA');
+				writeln(' Producto ingresado correctamente, presione para continuar');
+				showProducto(_producto);
+				readln();
+				// ------------------------------------------- //
 		end;
 
 	until UpperCase(confirmacion) = 'N';

@@ -96,7 +96,7 @@ BEGIN
 			seek(empresas, i);
 			write(empresas, _empresa);
 
-			Cartel('EMPRESA')
+			Cartel('EMPRESA');
 			writeln(' Empresa ingresado correctamente, presione para continuar');
 			showEmpresa(_empresa);
 			readln();

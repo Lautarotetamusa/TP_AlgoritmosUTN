@@ -1,4 +1,4 @@
-{$INCLUDE proyectos}
+{$INCLUDE productos}
 
 procedure menuPrincipal();forward;
 
@@ -23,7 +23,7 @@ procedure menuEmpresas();
 			'1':AltaCiudades();
 			'2':AltaEmpresas();
 			'3':AltaProyectos();
-			'4':WriteLn('ALTA');
+			'4':AltaProductos();
 			'5':WriteLn('ALTA');
 			'0':menuPrincipal();
 			else WriteLn(descartable,' NO ES UNA OPCION VALIDA')

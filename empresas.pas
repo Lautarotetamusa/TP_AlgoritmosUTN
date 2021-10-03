@@ -1,31 +1,28 @@
-{$INCLUDE clientes}
+{$INCLUDE ciudades}
 
-// ---------------------------------------------------- //
-// Busca si el codigo de la ciudad existe en el archivo //
-// ---------------------------------------------------- //
-function BuscarCiudad(a : string) : boolean;
+
+function BuscarEmpresa(cod : string) : boolean;
 VAR
 	i, n : integer;
-	_ciudad : ciudad;
+	_emp : empresa;
 BEGIN
-	assign(ciudades, 'data/ciudades.dat');
-	reset(ciudades);
+	assign(empresas, 'data/empresas.dat');
+	reset(empresas);
 
-	n := filesize(ciudades);
+	n := filesize(empresas);
 
 	for i:=0 to n-1 do
 	begin
-		seek(ciudades, i);
-		read(ciudades, _ciudad);
+		seek(empresas, i);
+		read(empresas, _emp);
 
-		if _ciudad.COD_ciudad = UpperCase(a) then
+		if _emp.COD_empresa = UpperCase(cod) then
 			exit(true);
 	end;
 
-	close(ciudades);
-
 	exit(false);
 END;
+
 
 // ------------------- ShowEmpresa() -------------------- //
 // Muestra los datos de una empresa pasada como parametro //
@@ -50,9 +47,11 @@ BEGIN
 	assign(empresas, 'data/empresas.dat');
 	reset(empresas);
 
-	//posicionarse al final del archivo
-	i := filesize(empresas);
+
 	repeat
+		//posicionarse al final del archivo
+		i := filesize(empresas);
+
 		Cartel('EMPRESAS');
 
 		writeln(' Desea Ingresar una empresa? (s o n): ');
@@ -84,10 +83,11 @@ BEGIN
 
 				if not(BuscarCiudad(cod_ciudad)) then
 				begin
-					writeln('La ciudad ingresada no existe');
-					sleep(1500);
+					writeln('La ciudad ingresada no existe, presione para continuar');
+					readln();
 				end;
-			until (length(cod_ciudad) = 3) and BuscarCiudad(cod_ciudad);
+			until BuscarCiudad(cod_ciudad);
+			close(ciudades);
 			// ---------------------- //
 
 			// * Guardar _empresa en el archivo empresas * //
@@ -96,6 +96,7 @@ BEGIN
 			seek(empresas, i);
 			write(empresas, _empresa);
 
+			Cartel('EMPRESA')
 			writeln(' Empresa ingresado correctamente, presione para continuar');
 			showEmpresa(_empresa);
 			readln();

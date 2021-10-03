@@ -1,25 +1,23 @@
-{$INCLUDE ciudades}
+{$INCLUDE empresas}
 
-function BuscarEmpresa(a : string) : boolean;
+function Buscarproyecto(a : string) : boolean;
 VAR
 	i, n : integer;
-	_emp : empresa;
+	_emp : proyecto;
 BEGIN
-	assign(empresas, 'data/empresas.dat');
-	reset(empresas);
+	assign(proyectos, 'data/proyectos.dat');
+	reset(proyectos);
 
-	n := filesize(empresas);
+	n := filesize(proyectos);
 
 	for i:=0 to n-1 do
 	begin
-		seek(empresas, i);
-		read(empresas, _emp);
+		seek(proyectos, i);
+		read(proyectos, _emp);
 
-		if _emp.COD_empresa = UpperCase(a) then
+		if _emp.COD_proy = UpperCase(a) then
 			exit(true);
 	end;
-
-	close(empresas);
 
 	exit(false);
 END;
@@ -85,7 +83,8 @@ var
 		confirmacion : char;
 		_proyecto : proyecto;
 		cod_ciudad : string;
-		cod_empresa: string;
+		cod_proyecto: string;
+		cod_emp     : string;
 		i : integer;
 		cantidades : array [0..2] of string = ('productos', 'consultas', 'vendidos');
 begin
@@ -93,29 +92,43 @@ begin
 	reset(proyectos);
 
 	repeat
+		i := filesize(proyectos);
 		Cartel('PROYECTO');
 
-		writeln('Desea Ingresar un proyecto (s o n): ');
+		writeln(' Desea Ingresar un proyecto (s o n): ');
 		readln(confirmacion);
 		if UpperCase(confirmacion) = 'S' then
 		begin
 
-				Cartel('PROYECTO');
-				_proyecto.COD_proy := IngresoCodigo('proyecto');
+				// * Ingreso COD proyecto * //
+				repeat
+					Cartel('PROYECTO');
+					cod_proyecto := IngresoCodigo('proyecto');
+
+					if Buscarproyecto(cod_proyecto) then
+					begin
+						writeln(' El proyecto ingresado ya existe, presione para continuar');
+						readln();
+					end;
+				until not Buscarproyecto(cod_proyecto);
+
+				_proyecto.COD_proy := cod_proyecto;
+				// ----------------------- //
 
 				// * Ingreso COD empresa * //
 				repeat
 					Cartel('PROYECTO');
-					cod_empresa := IngresoCodigo('empresa');
+					cod_emp := IngresoCodigo('empresa');
 
-					if not(BuscarEmpresa(cod_empresa)) then
+					if not(BuscarEmpresa(cod_emp)) then
 					begin
-						writeln('La empresa ingresada no existe');
-						sleep(1500);
+						writeln(' La empresa ingresado no existe, presione para continuar');
+						readln();
 					end;
-				until BuscarEmpresa(cod_empresa);
+				until BuscarEmpresa(cod_emp);
 
-				_proyecto.cod_emp := cod_empresa;
+				_proyecto.COD_emp := cod_emp;
+				close(empresas);
 				// ----------------------- //
 
 
@@ -126,10 +139,10 @@ begin
 
 					if not(BuscarCiudad(cod_ciudad)) then
 					begin
-						writeln('La ciudad ingresada no existe');
-						sleep(1500);
+						writeln('La ciudad ingresada no existe, presione para continuar');
+						readln();
 					end;
-				until (length(cod_ciudad) = 3) and BuscarCiudad(cod_ciudad);
+				until BuscarCiudad(cod_ciudad);
 
 				_proyecto.cod_ciudad := cod_ciudad;
 				// ---------------------- //
@@ -152,11 +165,11 @@ begin
 				end;
 				// ---------------------- //
 
+				write(proyectos, _proyecto);
+
 				writeln(' Proyecto ingresada correctamente, presione para continuar');
 				ShowProyecto(_proyecto);
 				readln();
-
-				write(proyectos, _proyecto);
 		end;
 	until UpperCase(confirmacion) = 'N';
 

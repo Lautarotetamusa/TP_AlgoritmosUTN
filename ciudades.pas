@@ -1,30 +1,27 @@
-{$INCLUDE empresas}
+{$INCLUDE clientes}
 
-// -------- BusquedaCiudad (ciudad) ------------
-// Return true si la ciudad esta en ciudades.dat
-// False si no ---------------------------------
-function BusquedaCiudad(a : ciudad) : boolean;
+// ---------------------------------------------------- //
+// Busca si el codigo de la ciudad existe en el archivo //
+// ---------------------------------------------------- //
+function BuscarCiudad(a : string) : boolean;
 VAR
-	i : integer;
-	n : integer;
+	i, n : integer;
 	_ciudad : ciudad;
 BEGIN
-	//assign(ciudades, 'data/ciudades.dat');
-	//reset(ciudades);
+	assign(ciudades, 'data/ciudades.dat');
+	reset(ciudades);
 
-	i := 0;
 	n := filesize(ciudades);
-	while(i < n) do
+
+	for i:=0 to n-1 do
 	begin
 		seek(ciudades, i);
 		read(ciudades, _ciudad);
-		if (_ciudad.COD_ciudad = a.COD_ciudad) or (UpperCase(_ciudad.nombre) = UpperCase(a.nombre)) then
-			exit(true);
 
-		i := i + 1;
+		if _ciudad.COD_ciudad = UpperCase(a) then
+			exit(true);
 	end;
 
-	//close(ciudades);
 	exit(false);
 END;
 
@@ -83,6 +80,7 @@ procedure AltaCiudades();
 VAR
 	confirmacion : char;
 	_ciudad : ciudad;
+	cod_ciudad : string;
 	i : integer;
 BEGIN
 		assign(ciudades, 'data/ciudades.dat');
@@ -97,37 +95,35 @@ BEGIN
 			readln(confirmacion);
 			if UpperCase(confirmacion) = 'S' then
 			begin
-				Cartel('ciudades');
+				// Ingreso COD ciudad //
+				repeat
+					cartel('CIUDADES');
+					cod_ciudad := IngresoCodigo('ciudad');
 
-				// * Leemos las variables * //
-				// Leer codigo ciudad //
-				_ciudad.COD_ciudad := IngresoCodigo('ciudades');
+					if BuscarCiudad(cod_ciudad) then
+					begin
+						writeLn(' La ciudad ya existe, presione para continuar');
+						readln();
+					end;
+				until not BuscarCiudad(cod_ciudad);
 
-				Cartel('ciudades');
+				_ciudad.COD_ciudad := cod_ciudad;
+				// ---------------------------
 
-				// Leer Nombre //
+				//  Ingreso Nombre  //
+				Cartel('CIUDADES');
 				write(' Nombre ciudad: '); readln(_ciudad.nombre);
-				Cartel('ciudades');
+				// ------------ //
 
-				// * Verificar que no este agregada esa ciudad * //
-				if BusquedaCiudad(_ciudad) then
-				begin
-					writeLn(' La ciudad ya existe');
-					sleep(1500);
-					clrscr;
-				end
-				else
-				begin
-				  // Guardar la ciudad en el archivo //
-					seek(ciudades, i);
-					write(ciudades, _ciudad);
-					i := i + 1;
+				// Guardar en archivo //
+				seek(ciudades, i);
+				write(ciudades, _ciudad);
+				i := i+1;
+				// ----------------- //
 
-					writeln(' Ciudad ingresada correctamente, presione para continuar');
-					ShowCiudad(_ciudad);
-					readln();
-					clrscr;
-				end;
+				writeln(' Ciudad ingresada correctamente, presione para continuar');
+				ShowCiudad(_ciudad);
+				readln();
 			end;
 		until (UpperCase(confirmacion) = 'N');
 

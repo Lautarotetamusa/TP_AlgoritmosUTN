@@ -1,27 +1,5 @@
 {$INCLUDE empresas}
 
-function Buscarproyecto(a : string) : boolean;
-VAR
-	i, n : integer;
-	_emp : proyecto;
-BEGIN
-	assign(proyectos, 'data/proyectos.dat');
-	reset(proyectos);
-
-	n := filesize(proyectos);
-
-	for i:=0 to n-1 do
-	begin
-		seek(proyectos, i);
-		read(proyectos, _emp);
-
-		if _emp.COD_proy = UpperCase(a) then
-			exit(true);
-	end;
-
-	exit(false);
-END;
-
 function IngresoCaracter( nombre : string; options : array of char ) : char;
 var
 	i, n : integer;
@@ -101,50 +79,16 @@ begin
 		begin
 
 				// * Ingreso COD proyecto * //
-				repeat
-					Cartel('PROYECTO');
-					cod_proyecto := IngresoCodigo('proyecto');
-
-					if Buscarproyecto(cod_proyecto) then
-					begin
-						writeln(' El proyecto ingresado ya existe, presione para continuar');
-						readln();
-					end;
-				until not Buscarproyecto(cod_proyecto);
-
-				_proyecto.COD_proy := cod_proyecto;
+					_proyecto.COD_proy := IngresoCOD('PROYECTO', 'proyecto', false);
 				// ----------------------- //
 
 				// * Ingreso COD empresa * //
-				repeat
-					Cartel('PROYECTO');
-					cod_emp := IngresoCodigo('empresa');
-
-					if not(BuscarEmpresa(cod_emp)) then
-					begin
-						writeln(' La empresa ingresado no existe, presione para continuar');
-						readln();
-					end;
-				until BuscarEmpresa(cod_emp);
-
-				_proyecto.COD_emp := cod_emp;
-				close(empresas);
+					_proyecto.COD_emp := IngresoCOD('PROYECTO', 'empresa');
 				// ----------------------- //
 
 
 				// * Ingreso COD ciudad * //
-				repeat
-					Cartel('PROYECTO');
-					cod_ciudad := IngresoCodigo('ciudad');
-
-					if not(BuscarCiudad(cod_ciudad)) then
-					begin
-						writeln('La ciudad ingresada no existe, presione para continuar');
-						readln();
-					end;
-				until BuscarCiudad(cod_ciudad);
-
-				_proyecto.cod_ciudad := cod_ciudad;
+					_proyecto.COD_ciudad := IngresoCOD('PROYECTO', 'ciudad');
 				// ---------------------- //
 
 
@@ -165,11 +109,13 @@ begin
 				end;
 				// ---------------------- //
 
+				// * Guardamos _proyecto en el archivo * //
 				write(proyectos, _proyecto);
 
 				writeln(' Proyecto ingresada correctamente, presione para continuar');
 				ShowProyecto(_proyecto);
 				readln();
+				// ------------------------------------ //
 		end;
 	until UpperCase(confirmacion) = 'N';
 

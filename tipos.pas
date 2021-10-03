@@ -1,4 +1,9 @@
-{$INCLUDE funciones}
+
+
+PROGRAM tipos;
+USES crt,sysutils, contra;
+var
+intentos:integer;
 
 //-----------------------------------
 // * Declaracion de tipos de datos *
@@ -52,6 +57,7 @@ type
  // ----------------------------
  // * declaracion de archivos *
  // ----------------------------
+
  var
  		ciudades : FILE of ciudad;
 		empresas : FILE of empresa;

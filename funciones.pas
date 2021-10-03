@@ -1,9 +1,6 @@
 // * Archivo con funciones que se usan en el resto de archivos * //
 
-PROGRAM funciones;
-USES crt,sysutils, contra;
-var
-intentos:integer;
+{$INCLUDE tipos}
 
 procedure Cartel(message : string);
 BEGIN
@@ -12,21 +9,135 @@ BEGIN
 	writeln('  _______________________');
 	writeln(' |  ___________________  |');
 	writeln(' | |                   | |');
-	writeln(' | |   MENU ', message,'   | |');
+	writeln(' | |   ALTA ', message,'   | |');
 	writeln(' | |___________________| |');
 	writeln(' |_______________________|');
 	writeln('');
 END;
 
+function BuscarCiudad(a : string) : boolean;
+VAR
+	i, n : integer;
+	_ciudad : ciudad;
+BEGIN
+	assign(ciudades, 'data/ciudades.dat');
+	reset(ciudades);
+
+	n := filesize(ciudades);
+
+	for i:=0 to n-1 do
+	begin
+		seek(ciudades, i);
+		read(ciudades, _ciudad);
+
+		if _ciudad.COD_ciudad = UpperCase(a) then
+			exit(true);
+	end;
+
+	exit(false);
+END;
+
+function BuscarEmpresa(a : string)   : boolean;
+VAR
+	i, n : integer;
+	_emp : empresa;
+BEGIN
+	assign(empresas, 'data/empresas.dat');
+	reset(empresas);
+
+	n := filesize(empresas);
+
+	for i:=0 to n-1 do
+	begin
+		seek(empresas, i);
+		read(empresas, _emp);
+
+		if _emp.COD_empresa = UpperCase(a) then
+			exit(true);
+	end;
+
+	exit(false);
+END;
+
+function BuscarProducto(a : string) : boolean;
+var
+	i, n : integer;
+	_prod : producto;
+begin
+	assign(productos, 'data/productos.dat');
+	reset(productos);
+
+	n := filesize(productos);
+
+	for i:=0 to n-1 do
+	begin
+		seek(productos, i);
+		read(productos, _prod);
+
+		if _prod.COD_prod = UpperCase(a) then
+			exit(true);
+	end;
+
+	exit(false);
+end;
+
+function BuscarProyecto(a : string) : boolean;
+VAR
+	i, n : integer;
+	_emp : proyecto;
+BEGIN
+	assign(proyectos, 'data/proyectos.dat');
+	reset(proyectos);
+
+	n := filesize(proyectos);
+
+	for i:=0 to n-1 do
+	begin
+		seek(proyectos, i);
+		read(proyectos, _emp);
+
+		if _emp.COD_proy = UpperCase(a) then
+			exit(true);
+	end;
+
+	exit(false);
+END;
+
+function BuscarCOD(cod, tipo : string) : boolean;
+VAR
+	i, n : integer;
+	result : boolean;
+BEGIN
+
+	result := false;
+
+	case (tipo) of
+		'ciudad'  : result := BuscarCiudad(cod);
+		'empresa' : result := BuscarEmpresa(cod);
+		'proyecto': result := BuscarProyecto(cod);
+		'producto': result := BuscarProducto(cod);
+		else writeln(' error tipo incorrecto');
+	end;
+
+	exit(result);
+END;
+
 // ------------------------------------------------------------- //
 // * Hace los chequeos necesarios del ingreso de cualquier COD * //
 // ------------------------------------------------------------- //
-function IngresoCodigo(cartel : string) : string;
+function IngresoCodigo(alta, cartel : string) : string;
 VAR
 	return : string;
 BEGIN
 	repeat
-
+	clrscr;
+	writeln('  _______________________');
+	writeln(' |  ___________________  |');
+	writeln(' | |                   | |');
+	writeln(' | |   ALTA ', alta,'   | |');
+	writeln(' | |___________________| |');
+	writeln(' |_______________________|');
+	writeln('');
 		writeln(' [ 3 letras mayusculas ]');
 		write(' COD ', cartel, ' : '); readln(return);
 
@@ -39,3 +150,40 @@ BEGIN
 
 	exit(UpperCase(return));
 END;
+
+
+
+function IngresoCOD(nombreAlta, nombreCOD : string) : string; overload;
+var
+	COD : string;
+begin
+	repeat
+		COD := IngresoCodigo(nombreAlta, nombreCOD);
+
+		if not BuscarCOD(COD, nombreCOD) then
+		begin
+			writeLn(' ',nombreCOD,' NO existe, presione para continuar');
+			readln();
+		end;
+	until (BuscarCOD(COD, nombreCOD));
+
+	exit(COD);
+end;
+
+function IngresoCOD(nombreAlta, nombreCOD : string; e : boolean) : string; overload;
+var
+	COD : string;
+begin
+
+	repeat
+		COD := IngresoCodigo(nombreAlta, nombreCOD);
+
+		if BuscarCOD(COD, nombreCOD) then
+		begin
+			writeLn(' ',nombreCOD,' YA existe, presione para continuar');
+			readln();
+		end;
+	until not (BuscarCOD(COD, nombreCOD));
+
+	exit(COD);
+end;

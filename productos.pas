@@ -1,27 +1,5 @@
 {$INCLUDE proyectos}
 
-function BuscarProducto(cod : string) : boolean;
-var
-	i, n : integer;
-	_prod : producto;
-begin
-	assign(productos, 'data/productos.dat');
-	reset(productos);
-
-	n := filesize(productos);
-
-	for i:=0 to n-1 do
-	begin
-		seek(productos, i);
-		read(productos, _prod);
-
-		if UpperCase(cod) = _prod.COD_prod then
-			exit(true);
-	end;
-
-	exit(false);
-end;
-
 procedure AltaProductos();
 var
 		confirmacion : char;
@@ -46,34 +24,11 @@ begin
 		begin
 
 				// Ingreso COD_prod //
-				repeat
-					Cartel('PRODUCTO');
-					cod_prod := IngresoCodigo('producto');
-
-					if BuscarProducto(cod_prod) then
-					begin
-						writeln(' El producto ya existe, presione cualquier tecla para continuar..');
-						readln();
-					end;
-				until not BuscarProducto(cod_prod);
-
-				_producto.COD_prod := cod_prod;
+					_producto.COD_prod := IngresoCOD('PRODUCTO', 'producto', true);
 				// -------------- //
 
 				// Ingreso COD_proy, verifica que exista
-				repeat
-					Cartel('PRODUCTO');
-					cod_proy := IngresoCodigo('proyecto');
-
-					if not Buscarproyecto(cod_proy) then
-					begin
-						writeln(' El proyecto NO existe, presione cualquier tecla para continuar..');
-						readln();
-					end;
-				until Buscarproyecto(cod_proy);
-				close(proyectos);
-
-				_producto.COD_proy := cod_proy;
+					_producto.COD_proy := IngresoCOD('PRODUCTO', 'proyecto');
 				// -------------------------------------
 
 				// Precio de venta
@@ -100,6 +55,12 @@ begin
 				if UpperCase(estado) = 'N' then
 					_producto.estado := false;
 				// --------------------- //
+
+
+				// Ingreso Detalle //
+
+
+				// --------------- //
 		end;
 
 	until UpperCase(confirmacion) = 'N';

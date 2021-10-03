@@ -3,27 +3,7 @@
 // ---------------------------------------------------- //
 // Busca si el codigo de la ciudad existe en el archivo //
 // ---------------------------------------------------- //
-function BuscarCiudad(a : string) : boolean;
-VAR
-	i, n : integer;
-	_ciudad : ciudad;
-BEGIN
-	assign(ciudades, 'data/ciudades.dat');
-	reset(ciudades);
 
-	n := filesize(ciudades);
-
-	for i:=0 to n-1 do
-	begin
-		seek(ciudades, i);
-		read(ciudades, _ciudad);
-
-		if _ciudad.COD_ciudad = UpperCase(a) then
-			exit(true);
-	end;
-
-	exit(false);
-END;
 
 // ----------------------------------------------
 // Ordena las ciudades por codigo de menor a mayor
@@ -96,18 +76,7 @@ BEGIN
 			if UpperCase(confirmacion) = 'S' then
 			begin
 				// Ingreso COD ciudad //
-				repeat
-					cartel('CIUDADES');
-					cod_ciudad := IngresoCodigo('ciudad');
-
-					if BuscarCiudad(cod_ciudad) then
-					begin
-						writeLn(' La ciudad ya existe, presione para continuar');
-						readln();
-					end;
-				until not BuscarCiudad(cod_ciudad);
-
-				_ciudad.COD_ciudad := cod_ciudad;
+				_ciudad.COD_ciudad := IngresoCOD('CIUDADES', 'ciudad', true);
 				// ---------------------------
 
 				//  Ingreso Nombre  //

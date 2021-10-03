@@ -1,4 +1,5 @@
-{$INCLUDE tipos}
+{$INCLUDE funciones}
+
 procedure showCliente(c:cliente);
     begin
         writeln(' Nombre: ', c.nombre_apellido);
@@ -8,7 +9,7 @@ procedure showCliente(c:cliente);
 procedure altaClientes();
     var
         _cliente:cliente;
-        i:integer; 
+        i:integer;
         descartable:char;
     begin
         assign(clientes, 'data/clientes.dat');
@@ -27,13 +28,13 @@ procedure altaClientes();
 
                 Cartel('CLIENTES');
                 write(' Mail: '); readln(_cliente.mail);
-                
+
                 Cartel('CLIENTES');
                 write(' Dni: '); readln(_cliente.dni);
-                
+
                 seek(clientes,i);
                 write(clientes,_cliente);
-                
+
                 writeln(' Cliente ingresado correctamente, presione para continuar');
                 showCliente(_cliente);
                 readln();

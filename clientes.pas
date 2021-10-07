@@ -41,6 +41,6 @@ procedure altaClientes();
 
             end;
         until UpperCase(descartable) = 'N';
-
         close(clientes);
+        menuClientes();
     end;

@@ -1,6 +1,6 @@
 {$INCLUDE productos}
 
-procedure menuPrincipal();forward;
+
 
 function contra():string;forward;
 

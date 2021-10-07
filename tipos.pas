@@ -4,7 +4,9 @@ PROGRAM tipos;
 USES crt,sysutils, contra;
 var
 intentos:integer;
-
+procedure menuPrincipal();forward;
+procedure menuEmpresas();forward;
+procedure menuClientes();forward;
 //-----------------------------------
 // * Declaracion de tipos de datos *
 //-----------------------------------
@@ -31,7 +33,7 @@ type
 		 cliente = RECORD
 		 		nombre_apellido : array[0..40] of char;
 		 		mail 						: array[0..30] of char;
-				dni : integer;
+				dni : longint;
 		 END;
 		 proyecto = RECORD
 		 		// ----- cantidades -----

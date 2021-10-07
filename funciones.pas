@@ -17,11 +17,10 @@ END;
 
 function BuscarCiudad(a : string) : boolean;
 VAR
-	i, n : integer;
+	i: integer;
+	n : int64;
 	_ciudad : ciudad;
 BEGIN
-	assign(ciudades, 'data/ciudades.dat');
-	reset(ciudades);
 
 	n := filesize(ciudades);
 
@@ -39,11 +38,10 @@ END;
 
 function BuscarEmpresa(a : string)   : boolean;
 VAR
-	i, n : integer;
+	i : integer;
+	n : int64;
 	_emp : empresa;
 BEGIN
-	assign(empresas, 'data/empresas.dat');
-	reset(empresas);
 
 	n := filesize(empresas);
 
@@ -61,7 +59,8 @@ END;
 
 function BuscarProducto(a : string) : boolean;
 var
-	i, n : integer;
+	i: integer;
+	n : int64;
 	_prod : producto;
 begin
 	assign(productos, 'data/productos.dat');
@@ -105,7 +104,6 @@ END;
 
 function BuscarCOD(cod, tipo : string) : boolean;
 VAR
-	i, n : integer;
 	result : boolean;
 BEGIN
 

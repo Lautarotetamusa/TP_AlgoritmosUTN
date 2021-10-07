@@ -42,7 +42,19 @@ BEGIN
 			// ----------------------- //
 
 			// * Ingreso COD ciudad * //
-			_empresa.COD_ciudad := IngresoCOD('EMPRESAS', 'ciudad');
+			assign(ciudades, 'data/ciudades.dat');
+			reset(ciudades);
+			if filesize(ciudades) <> 0 then 
+				_empresa.COD_ciudad := IngresoCOD('EMPRESAS', 'ciudad')
+			else
+			begin
+				WriteLn('No hay ciudades, ingrese ciudades. Presione una tecla para continuar.');
+				close(ciudades);
+				readln();
+				menuEmpresas();
+			end;
+			Close(ciudades);
+
 			// ---------------------- //
 
 			//Ingreso
@@ -71,6 +83,6 @@ BEGIN
 
 		end;
 	until UpperCase(confirmacion) = 'N';
-
 	close(empresas);
+	menuEmpresas();
 END;

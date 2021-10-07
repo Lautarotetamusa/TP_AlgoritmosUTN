@@ -95,8 +95,7 @@ BEGIN
 				readln();
 			end;
 		until (UpperCase(confirmacion) = 'N');
-
 		OrdenarCiudades();
-
 		close(ciudades);
+		menuEmpresas();
 END;

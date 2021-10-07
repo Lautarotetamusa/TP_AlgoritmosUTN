@@ -82,6 +82,6 @@ begin
 		end;
 
 	until UpperCase(confirmacion) = 'N';
-
 	close(productos);
+	menuEmpresas();
 end;

@@ -1,4 +1,4 @@
-{$INCLUDE funciones}
+{$INCLUDE estadisticas}
 
 procedure showCliente(c:cliente);
     begin

@@ -15,8 +15,8 @@ var
 		estado : char;
 		estado_correcto : boolean;
 		_producto : producto;
-		cod_proy : string;
-		cod_prod : string;
+		//!cod_proy : string;
+		//!cod_prod : string;
 		i : integer;
 begin
 	assign(productos, 'data/productos.dat');

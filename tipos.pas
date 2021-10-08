@@ -21,6 +21,7 @@ type
 		 ciudad = RECORD
 				nombre 		 : array[0..20] of char;
 				COD_ciudad : array[0..3] of char;
+				consultas: integer;
 		 END;
 		 empresa = RECORD
 		 		direccion		: array[0..40] of char;
@@ -29,6 +30,7 @@ type
 				telefono		: array[0..20] of char;
 				COD_empresa : array[0..3] of char;
 				COD_ciudad	: array[0..3] of char;
+				consultas: integer;
 		 END;
 		 cliente = RECORD
 		 		nombre_apellido : array[0..40] of char;
@@ -47,6 +49,7 @@ type
 				COD_ciudad : array[0..3] of char;
 				etapa    : char;
 				tipo 		 : char;
+				consultas: integer;
 		 END;
 		 producto = RECORD
 		 		detalle : array[0..49] of char;

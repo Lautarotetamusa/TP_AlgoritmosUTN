@@ -47,6 +47,55 @@ procedure menuClientes();
 		end;
 	end;
 
+procedure consultaProyectos();
+	var
+		descartable:char;
+		i, pos: integer;
+		fs: int64;
+		proy: proyecto;
+	begin
+		clrscr;
+		writeln('Ingrese que tipo de proyecto desea conocer (c - d - o - l): ');
+		readln(descartable);
+
+		assign(proyectos,'data/proyectos.dat');		
+		Reset(proyectos);
+		Assign(empresas,'data/empresas.dat');
+		reset(empresas);
+		fs:= FileSize(proyectos);
+		
+		pos:= 5;
+		clrscr;
+
+		for i:=3 to 46 do
+		begin
+			gotoxy(i,pos-2);
+			write('_');
+		end;
+
+		gotoxy(2,pos-1); write('|');
+		gotoxy(9,pos-1); write('|');
+		gotoxy(27,pos-1); write('|');
+		gotoxy(47,pos-1); write('|');
+		
+		for i:=0 to fs-1 do
+		begin
+			seek(proyectos, i);
+			read(proyectos, proy);
+			
+			if proy.tipo = descartable then 
+			begin
+				gotoxy(3,pos);write(proy.COD_proy);
+				gotoxy(9,pos);write('|');
+
+			end;
+
+
+		end;
+		close(proyectos);
+		close(empresas);
+	end;
+
 procedure menuPrincipal();
 	var
 		descartable:char;
@@ -124,7 +173,8 @@ function contra():string;
 // -----------------------
 BEGIN
 	intentos:=0;
-
+	consultaProyectos();
+	ReadLn();
 	while 1 = 1 do
 	begin
 		clrscr;

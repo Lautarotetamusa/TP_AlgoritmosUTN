@@ -60,7 +60,7 @@ procedure AltaCiudades();
 VAR
 	confirmacion : char;
 	_ciudad : ciudad;
-	cod_ciudad : string;
+	//!cod_ciudad : string;
 	i : integer;
 BEGIN
 		assign(ciudades, 'data/ciudades.dat');

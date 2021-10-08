@@ -17,8 +17,8 @@ end;
 procedure AltaEmpresas();
 VAR
 	_empresa : empresa;
-	i : integer;
-	cod_ciudad   : string;
+	i : int64;
+	//!cod_ciudad   : string;
 	confirmacion : char;
 BEGIN
 	assign(empresas, 'data/empresas.dat');
@@ -69,6 +69,9 @@ BEGIN
 
 			Cartel('EMPRESAS');
 			write(' Mail: '); readln(_empresa.mail);
+						
+			Cartel('EMPRESAS');
+			write(' Consultas: '); readln(_empresa.consultas);
 
 
 			// * Guardar _empresa en el archivo empresas * //

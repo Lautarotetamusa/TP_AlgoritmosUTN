@@ -60,9 +60,9 @@ procedure AltaProyectos();
 var
 		confirmacion : char;
 		_proyecto : proyecto;
-		cod_ciudad : string;
-		cod_proyecto: string;
-		cod_emp     : string;
+		//!cod_ciudad : string;
+		//!cod_proyecto: string;
+		//!cod_emp     : string;
 		i : integer;
 		cantidades : array [0..2] of string = ('productos', 'consultas', 'vendidos');
 begin
@@ -83,12 +83,18 @@ begin
 				// ----------------------- //
 
 				// * Ingreso COD empresa * //
+				Assign(empresas,'data/empresas.dat');
+				reset(empresas);
 					_proyecto.COD_emp := IngresoCOD('PROYECTO', 'empresa');
+				close(empresas);
 				// ----------------------- //
 
 
 				// * Ingreso COD ciudad * //
+				assign(ciudades,'data/ciudades.dat');
+				reset(ciudades);
 					_proyecto.COD_ciudad := IngresoCOD('PROYECTO', 'ciudad');
+				close(ciudades);
 				// ---------------------- //
 
 

@@ -85,9 +85,6 @@ VAR
 	i, n : integer;
 	_emp : proyecto;
 BEGIN
-	assign(proyectos, 'data/proyectos.dat');
-	reset(proyectos);
-
 	n := filesize(proyectos);
 
 	for i:=0 to n-1 do

@@ -63,8 +63,6 @@ var
 	n : int64;
 	_prod : producto;
 begin
-	assign(productos, 'data/productos.dat');
-	reset(productos);
 
 	n := filesize(productos);
 

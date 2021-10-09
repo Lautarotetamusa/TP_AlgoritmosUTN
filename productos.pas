@@ -37,7 +37,10 @@ begin
 				// -------------- //
 
 				// Ingreso COD_proy, verifica que exista
+				Assign(proyectos,'data/proyectos.dat');
+				reset(proyectos);
 					_producto.COD_proy := IngresoCOD('PRODUCTO', 'proyecto');
+				close(proyectos);
 				// -------------------------------------
 
 				// Precio de venta

@@ -1,9 +1,8 @@
-
-
 PROGRAM tipos;
 USES crt,sysutils, contra;
 var
 intentos:integer;
+procedure consultaProyectos();forward;
 procedure menuPrincipal();forward;
 procedure menuEmpresas();forward;
 procedure menuClientes();forward;
@@ -51,6 +50,10 @@ type
 				tipo 		 : char;
 				consultas: integer;
 		 END;
+
+		 	{	estado de productos
+				False= disponible
+				True = Vendido		}
 		 producto = RECORD
 		 		detalle : array[0..49] of char;
 		 		COD_prod :  array[0..3] of char;

@@ -54,7 +54,10 @@ procedure consultaProyectos();
 		descartable:char;
 		i, pos: integer;
 		fs: int64;
+		prod,aux :producto;
+
 		proy: proyecto;
+		_cod:string;
 		function BuscarNombreEmpresa(a : string)   : String;
 			VAR
 				i : integer;
@@ -134,10 +137,39 @@ procedure consultaProyectos();
 
 								exit(_emp);
 						end;
-						WriteLn('No se encontro proyecto con el codigo especificado.');
+						WriteLn(' No se encontro proyecto con el codigo especificado.');
 						ReadLn();
 						consultaProyecto();
+						close(ciudades);
+						close(proyectos);
+						close(empresas);
+						close(ciudades);
 					END;
+				function BuscarTipoProducto(a : string) : producto;
+					var
+						i: integer;
+						n : int64;
+						_prod : producto;
+					begin
+
+						n := filesize(productos);
+
+						for i:=0 to n-1 do
+						begin
+							seek(productos, i);
+							read(productos, _prod);
+
+							if _prod.COD_prod = UpperCase(a) then
+								exit(_prod);
+						end;
+						Writeln(' No se encontro producto con el codigo especificado.');
+						ReadLn();
+						close(productos);
+						close(ciudades);
+						close(proyectos);
+						close(empresas);
+						consultaProyectos();
+					end;
 			begin
 				
 				WriteLn('');
@@ -180,8 +212,34 @@ procedure consultaProyectos();
 						pos:=pos+1;
 					end;
 				end;
-				readln();
-				close(productos);		
+				gotoxy(2,pos);write('Ingrese el codigo del producto que quiere comprar:');
+				readln(_cod);
+				prod := BuscarTipoProducto(_cod);
+				clrscr;
+				writeln('Esta seguro que quiere comprar');
+				writeln( prod.detalle,' por ', prod.precio:9:2, '$ (s - n): ');
+				ReadLn(cod);
+				if (uppercase(cod)='S') then
+				begin
+					prod.estado:=True;
+				
+					for i:=0 to (FileSize(productos)-1) do
+					begin
+						seek(productos,i);
+						read(productos,aux);
+						if aux.COD_prod = prod.COD_prod then
+						begin
+							seek(productos,Filepos(productos)-1);
+							write(productos,prod);
+						end;
+					end;
+					ReadLn();
+				end;
+				close(ciudades);
+				close(empresas);
+				close(proyectos);
+				close(productos);	
+				menuClientes();	
 			end;
 	begin
 		clrscr;
@@ -238,6 +296,11 @@ procedure consultaProyectos();
 		dibujarVerticales(pos);
 		dibujarHorizontales(pos);
 		consultaProyecto();
+
+
+
+
+
 		close(ciudades);
 		close(proyectos);
 		close(empresas);

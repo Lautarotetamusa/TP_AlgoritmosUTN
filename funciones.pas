@@ -180,3 +180,54 @@ begin
 
 	exit(COD);
 end;
+
+function BuscarNombreEmpresa(a : string)   : String;
+	VAR
+		i : integer;
+		n : int64;
+		_emp : empresa;
+	BEGIN
+		n := filesize(empresas);
+	for i:=0 to n-1 do
+	begin
+		seek(empresas, i);
+		read(empresas, _emp);
+		if _emp.COD_empresa = UpperCase(a) then
+			exit(_emp.nombre);
+		end;
+	END;
+
+function BuscarNombreCiudad(a : string) : String;
+	VAR
+		i: integer;
+		n : int64;
+		_ciudad : ciudad;
+	BEGIN
+		n := filesize(ciudades);
+		for i:=0 to n-1 do
+		begin
+			seek(ciudades, i);
+			read(ciudades, _ciudad);
+			if _ciudad.COD_ciudad = UpperCase(a) then
+				exit(_ciudad.nombre);
+		end;
+	END;
+
+procedure dibujarHorizontales(h:integer);
+	var
+		i:integer;
+	begin
+	  	for i:=3 to 46 do
+			begin
+			gotoxy(i,h);
+			write('_');
+		end;
+	end;
+
+procedure dibujarVerticales(h:integer);
+	begin
+		gotoxy(2,h); write('|');
+		gotoxy(9,h); write('|');
+		gotoxy(27,h); write('|');
+		gotoxy(47,h); write('|');
+	end;

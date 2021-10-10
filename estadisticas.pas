@@ -1,5 +1,5 @@
 {$INCLUDE funciones}
-
+procedure estadisticasProyectos(a:integer);forward;
 procedure estadisticasEmpresas();
     var
         empr:empresa;
@@ -9,9 +9,8 @@ procedure estadisticasEmpresas();
         Assign(empresas,'data/empresas.dat');
         reset(empresas);
         fs:=filesize(empresas);
-        pos:=5;
-        clrscr;
-        writeln(' Empresas con mas de 10 consultas: ');
+        pos:=9;
+        gotoxy(2,5);writeln(' Empresas con mas de 10 consultas: ');
         for i:=3 to 50 do
         begin
             gotoxy(i,pos-3);
@@ -60,30 +59,90 @@ procedure estadisticasEmpresas();
             gotoxy(1,pos+2);
         end;
         close(empresas);
+        estadisticasProyectos(pos+4);
     end;
 
 procedure estadisticasCiudades();
     var
         ciud, aux:ciudad;
-        fs:int64;
         i:integer;
     begin
         Assign(ciudades,'data/ciudades.dat');
         reset(ciudades);
-        fs:=FileSize(ciudades);
-        Write(' Ciudad con mas consultas de proyectos: ');
-        for i:= 0 to fs-1 do
+        writeln('');
+        Write(' CIUDAD CON MAYOR CONSULTAS: ');
+        for i:= 0 to FileSize(ciudades)-1 do
         begin
             seek(ciudades,i);
             read(ciudades,ciud);
             if ciud.consultas > aux.consultas then
                 aux:=ciud;
         end;
-        Write(aux.nombre,' Consultas: ', aux.consultas);
+        textcolor(yellow);
+        Write(aux.nombre);
+        textcolor(white);
+        write(' Consultas: ');
+        textcolor(yellow);
+        write(aux.consultas);
+        textcolor(white);
+        writeln('');
+        close(ciudades);
+        dibujarhorizontales(3);
     end;
 
 
 
-{
-procedure estadisticasProyectos();
-    }
+
+procedure estadisticasProyectos(a:integer);
+    var
+        i:integer;
+        proy:proyecto;
+        pos:integer;
+    begin
+        Assign(proyectos,'data/proyectos.dat');
+        reset(proyectos);
+        write(' PROYECTOS TOTALMENTE VENDIDOS: ');
+        WriteLn(' ');
+        pos:=a;
+        for i:=0 to FileSize(proyectos)-1 do
+        begin
+            seek(proyectos,i);
+            read(proyectos,proy);
+            if proy.cantidades[0]=0 then
+            begin
+                gotoxy(3,pos);write(proy.COD_proy);
+                gotoxy(8,pos);write('|');
+                assign(empresas,'data/empresas.dat');
+                reset(empresas);
+                gotoxy(10,pos);write(BuscarNombreEmpresa(proy.COD_emp));
+                close(empresas);
+                gotoxy(25,pos);write('|');
+                gotoxy(26,pos);write(proy.cantidades[2]);
+            end;
+        end;
+        close(proyectos);
+        end;
+
+procedure estadisticas();
+    begin
+        clrscr();
+        estadisticasCiudades();
+        estadisticasEmpresas();
+        readln();
+    end;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

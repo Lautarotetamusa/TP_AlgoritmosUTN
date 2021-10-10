@@ -48,7 +48,6 @@ type
 				COD_ciudad : array[0..3] of char;
 				etapa    : char;
 				tipo 		 : char;
-				consultas: integer;
 		 END;
 
 		 	{	estado de productos

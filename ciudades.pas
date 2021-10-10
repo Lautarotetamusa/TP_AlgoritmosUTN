@@ -83,6 +83,10 @@ BEGIN
 				Cartel('CIUDADES');
 				write(' Nombre ciudad: '); readln(_ciudad.nombre);
 				// ------------ //
+				
+				//!Sacar esto antes de subir
+				Cartel('CIUDADES');
+				write(' consultas: '); readln(_ciudad.consultas);
 
 				// Guardar en archivo //
 				seek(ciudades, i);

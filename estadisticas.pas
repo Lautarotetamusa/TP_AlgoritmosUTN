@@ -129,6 +129,7 @@ procedure estadisticas();
         estadisticasCiudades();
         estadisticasEmpresas();
         readln();
+        menuEmpresas();
     end;
 
 

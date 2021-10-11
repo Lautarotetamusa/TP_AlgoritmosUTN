@@ -15,6 +15,7 @@ procedure menuEmpresas();
 	var
 		descartable:char;
 	begin
+		intentos:=0;
 		Cartel('EMPRESAS');
 
 		WriteLn(' 1. Alta de CIUDADES');
@@ -82,8 +83,11 @@ procedure consultaProyectos(mail:string);
 					_pro:proyecto;
 					ciu:ciudad;
 				begin
+					assign(empresas,'data/empresas.dat');
+					assign(ciudades,'data/ciudades.dat');
+					reset(ciudades);
+					reset(empresas);
 
-				
 					for j:=0 to (filesize(proyectos)-1) do
 					begin
 						seek(proyectos,j);
@@ -139,10 +143,6 @@ procedure consultaProyectos(mail:string);
 						end;
 						WriteLn(' No se encontro proyecto con el codigo especificado.');
 						ReadLn();
-						close(ciudades);
-						close(proyectos);
-						close(empresas);
-						close(ciudades);
 						consultaProyecto();
 					END;
 				function BuscarTipoProducto(a : string) : producto;

@@ -38,8 +38,9 @@ begin
     assign(clientes,'data/clientes.dat');
     reset(clientes);
     repeat
-        writeln('Ingrese su DNI: ');
-        readln(userinput);
+        clrscr;
+        gotoxy(2,2);writeln('Ingrese su DNI: ');
+        gotoxy(2,3);readln(userinput);
         val(userinput,_dni,error);
     until error = 0;
     for i:=0 to (filesize(clientes)-1) do
@@ -88,8 +89,9 @@ end;
 procedure altaClientes();
     var
         _cliente:cliente;
-        i:integer;
+        i,error:integer;
         descartable:char;
+        userinput:string;
     begin
         assign(clientes, 'data/clientes.dat');
         reset(clientes);
@@ -108,8 +110,14 @@ procedure altaClientes();
                 Cartel('CLIENTES');
                write(' Mail: '); readln(_cliente.mail);
 
-                Cartel('CLIENTES');
-                write(' Dni: ');readln(_cliente.dni);
+
+                repeat
+                    clrscr;
+                    Cartel('CLIENTES');
+                    write(' Dni: ');
+                    read(userinput);
+                    val(userinput,_cliente.dni,error);
+                until error = 0;
 
                 if (buscarClienteExiste(_cliente.dni)) then
                 begin
@@ -132,7 +140,7 @@ procedure altaClientes();
                     readln();
                 end;
             end;
-            close(clientes);
         until UpperCase(descartable) = 'N';
+        close(clientes);
         menuClientes();
     end;

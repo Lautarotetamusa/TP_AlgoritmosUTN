@@ -6,7 +6,7 @@ begin
 	writeln(' COD_prod: ', a.COD_prod);
 	writeln(' COD_proy: ', a.COD_proy);
 	writeln(' estado: ', a.estado);
-	writeln(' precio: ', a.precio); 
+	writeln(' precio: ', a.precio:9:2); 
 end;
 
 procedure AltaProductos();

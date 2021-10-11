@@ -1,5 +1,12 @@
 {$INCLUDE productos}
+{
+	TRABAJO PRACTICO #3
+	
+	Integrantes:
+		Lautaro Teta Musa
+		Laureano Oliva
 
+}
 
 
 function contra():string;forward;
@@ -30,26 +37,29 @@ procedure menuEmpresas();
 	end;
 	end;
 
+
 procedure menuClientes();
 	var
 		descartable:char;
 	begin
-		Cartel('CLIENTES');
-		WriteLn(' 1. Alta de CLIENTE');
-		Writeln(' 2. Consulta de Proyectos');
-		WriteLn(' 0. Volver al menu principal');
-		write(' ');
-		ReadLn(descartable);
+		repeat
+			Cartel('CLIENTES');
+			WriteLn(' 1. Alta de CLIENTE');
+			Writeln(' 2. Ingreso Clientes');
+			WriteLn(' 0. Volver al menu principal');
+			write(' ');
+			ReadLn(descartable);
+		until (descartable = '1') or (descartable ='2') or (descartable='0');
 
 		case (descartable) of
 			'1':altaClientes();
 			'0':menuPrincipal();
-			'2':consultaProyectos();
+			'2':ingresoClientes();
 			else WriteLn(descartable,' NO ES UNA OPCION VALIDA')
 		end;
 	end;
 
-procedure consultaProyectos();
+procedure consultaProyectos(mail:string);
 	var
 		descartable:char;
 		i, pos: integer;
@@ -61,10 +71,56 @@ procedure consultaProyectos();
 		procedure consultaProyecto();
 			var
 				cod:string;
-				i:integer;
+				i,j:integer;
 				fs:int64;
 				_proy:proyecto;
 				_prod:producto;
+				procedure actulaizarConsultas(pro:producto);
+				var
+					j,i:integer;
+					aux:empresa;
+					_pro:proyecto;
+					ciu:ciudad;
+				begin
+
+				
+					for j:=0 to (filesize(proyectos)-1) do
+					begin
+						seek(proyectos,j);
+						read(proyectos,_proy);
+						if (_proy.COD_proy = pro.COD_proy) then
+						begin
+
+							_proy.cantidades[1]:=_proy.cantidades[1]+1;
+							seek(proyectos,filepos(proyectos)-1);
+							write(proyectos,_proy);
+							for i:=0 to (FileSize(empresas)-1) do
+							begin
+								seek(empresas,i);
+								read(empresas,aux);
+								if(aux.COD_empresa = _proy.COD_emp) then
+								begin
+									aux.consultas:= aux.consultas+1;
+									seek(empresas,filepos(empresas)-1);
+									write(empresas,aux);
+								end;
+							end;
+							for i:=0 to (filesize(ciudades)-1) do
+							begin
+								seek(ciudades,j);
+								read(ciudades,ciu);
+								if (ciu.COD_ciudad = _proy.COD_ciudad) then
+								begin
+									ciu.consultas:= ciu.consultas +1;
+									seek(ciudades,filepos(ciudades)-1);
+									write(ciudades,ciu);
+								end;
+							end;
+						end;
+					end;
+				end;
+
+
 				function BuscarTipoProyecto(a : string) : proyecto;
 					VAR
 						i, n : integer;
@@ -83,11 +139,11 @@ procedure consultaProyectos();
 						end;
 						WriteLn(' No se encontro proyecto con el codigo especificado.');
 						ReadLn();
-						consultaProyecto();
 						close(ciudades);
 						close(proyectos);
 						close(empresas);
 						close(ciudades);
+						consultaProyecto();
 					END;
 				function BuscarTipoProducto(a : string) : producto;
 					var
@@ -112,7 +168,7 @@ procedure consultaProyectos();
 						close(ciudades);
 						close(proyectos);
 						close(empresas);
-						consultaProyectos();
+						consultaProyectos(mail);
 					end;
 			begin
 				
@@ -159,8 +215,9 @@ procedure consultaProyectos();
 				gotoxy(2,pos);write('Ingrese el codigo del producto que quiere comprar:');
 				readln(_cod);
 				prod := BuscarTipoProducto(_cod);
+				actulaizarConsultas(prod);
 				clrscr;
-				writeln('Esta seguro que quiere comprar');
+				writeln('Esta seguro que quiere comprar?');
 				writeln( prod.detalle,' por ', prod.precio:9:2, '$ (s - n): ');
 				ReadLn(cod);
 				if (uppercase(cod)='S') then
@@ -175,6 +232,20 @@ procedure consultaProyectos();
 						begin
 							seek(productos,Filepos(productos)-1);
 							write(productos,prod);
+							for j:=0 to (filesize(proyectos)-1) do
+							begin
+								seek(proyectos,i);
+								read(proyectos,_proy);
+								if (_proy.COD_proy = prod.COD_proy) then
+								begin
+									_proy.cantidades[0]:=_proy.cantidades[0]-1;
+									_proy.cantidades[2]:=_proy.cantidades[2]+1;
+									seek(proyectos,filepos(proyectos)-1);
+									write(proyectos,_proy);
+								end;
+							end;
+							writeln('La venta se a completado con exito.');
+							write(' Un Mail sera enviado a :');textcolor(yellow); WriteLn(mail) ;textcolor(white);
 						end;
 					end;
 					ReadLn();
@@ -247,11 +318,6 @@ procedure consultaProyectos();
 		dibujarVerticales(pos);
 		dibujarHorizontales(pos);
 		consultaProyecto();
-
-
-
-
-
 		close(ciudades);
 		close(proyectos);
 		close(empresas);

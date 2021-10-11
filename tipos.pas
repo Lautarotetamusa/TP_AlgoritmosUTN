@@ -2,7 +2,7 @@ PROGRAM tipos;
 USES crt,sysutils, contra;
 var
 intentos:integer;
-procedure consultaProyectos();forward;
+procedure consultaProyectos(mail:string);forward;
 procedure menuPrincipal();forward;
 procedure menuEmpresas();forward;
 procedure menuClientes();forward;

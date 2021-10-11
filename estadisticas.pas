@@ -10,7 +10,7 @@ procedure estadisticasEmpresas();
         reset(empresas);
         fs:=filesize(empresas);
         pos:=9;
-        gotoxy(2,5);writeln(' Empresas con mas de 10 consultas: ');
+        gotoxy(2,5);writeln(' EMPRESAS CON MAS DE 10 CONSULTAS: ');
         for i:=3 to 50 do
         begin
             gotoxy(i,pos-3);
@@ -101,7 +101,7 @@ procedure estadisticasProyectos(a:integer);
     begin
         Assign(proyectos,'data/proyectos.dat');
         reset(proyectos);
-        write(' PROYECTOS TOTALMENTE VENDIDOS: ');
+        write(' PROYECTOS TOTALMENTE VENDIDOS (Cod - Empresa - Cant. Vent.): ');
         WriteLn(' ');
         pos:=a;
         for i:=0 to FileSize(proyectos)-1 do
